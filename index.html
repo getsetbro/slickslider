@@ -1,49 +1,35 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Slickslider : ">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
     <title>Slickslider</title>
-  </head>
+    <link rel="stylesheet" href="style.css">
+    <style>
 
+    </style>
+</head>
   <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/getsetbro/slickslider">View on GitHub</a>
-
-          <h1 id="project_title">Slickslider</h1>
-          <h2 id="project_tagline"></h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/getsetbro/slickslider/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/getsetbro/slickslider/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+    <div class="Carousel">
+      <div><iframe width="533" height="300" src="//www.youtube.com/embed/9Iq5yCoHp4o?showinfo=0" frameborder="0" ></iframe></div>
+      <div><img src="//placekitten.com/470/300"/></div>
+      <div><img src="//placekitten.com/g/470/300"/></div>
+      <div><img src="//placekitten.com/370/300"/></div>
+      <div><img src="//placekitten.com/g/370/300"/></div>
+      <div><img src="//placekitten.com/470/300"/></div>
+      <div><img src="//placekitten.com/g/470/300"/></div>
+      <div><img src="//placekitten.com/420/300"/></div>
+      <div><img src="//placekitten.com/g/420/300"/></div>
     </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>slickslider</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Slickslider maintained by <a href="https://github.com/getsetbro">getsetbro</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="bower_components/slick.js/slick/slick.min.js"></script>
+  <script>
+$('.Carousel').slick({
+speed: 300,
+slidesToShow: 1,
+centerMode: true,
+variableWidth: true
+});
+  </script>
   </body>
 </html>

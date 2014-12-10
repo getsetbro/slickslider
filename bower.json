@@ -1,0 +1,16 @@
+{
+  "name": "slickslider",
+  "version": "0.0.0",
+  "homepage": "https://github.com/getsetbro/slickslider",
+  "authors": [
+    "Seth Broweleit <hello[@]getsetbro[.]com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
