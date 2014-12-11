@@ -2,17 +2,20 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <meta name="description" content="Slickslider : ">
+    <meta name="description" content="Slickslider">
     <title>Slickslider</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-
-    </style>
+<style>
+  [data-videopID]{
+    font-size: 0;
+  }
+</style>
 </head>
   <body>
     <div class="Carousel">
-      <div><iframe width="533" height="300" src="//www.youtube.com/embed/9Iq5yCoHp4o?showinfo=0" frameborder="0" ></iframe></div>
-      <div><embed flashvars="title=Kitten&amp;advideo=1&amp;el=embedded&amp;fexp=907259%2C927622%2C931342%2C932404%2C937412%2C941004%2C941456%2C943917%2C947209%2C948124%2C952302%2C952605%2C952901%2C953912%2C955301%2C957103%2C957105%2C957201%2C959201&amp;hl=en_US&amp;cr=US&amp;loaderUrl=http%3A%2F%2Flocalhost%3A8000%2F&amp;avg_rating=4.84077506318&amp;iurlmaxres=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9Iq5yCoHp4o%2Fmaxresdefault.jpg&amp;ssl=1&amp;ldpj=-2&amp;allow_embed=1&amp;host_language=en&amp;iurlhq=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9Iq5yCoHp4o%2Fhqdefault.jpg&amp;video_id=9Iq5yCoHp4o&amp;enablejsapi=1&amp;eurl=http%3A%2F%2Flocalhost%3A8000%2F&amp;rel=1&amp;idpj=-2&amp;length_seconds=277&amp;showinfo=0&amp;iurlmq=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9Iq5yCoHp4o%2Fmqdefault.jpg&amp;index=0&amp;iurlsd=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9Iq5yCoHp4o%2Fsddefault.jpg&amp;iurl=https%3A%2F%2Fi.ytimg.com%2Fvi%2F9Iq5yCoHp4o%2Fhqdefault.jpg&amp;is_html5_mobile_device=true&amp;sw=1.0&amp;playerapiid=player_uid_243472479_1&amp;framer=http%3A%2F%2Flocalhost%3A8000%2F" bgcolor="#000000" allowscriptaccess="always" allowfullscreen="false" wmode="opaque" src="https://s.ytimg.com/yts/swfbin/player-vflBmjinG/watch_as3.swf" type="application/x-shockwave-flash" tabindex="0" id="player_uid_243472479_1" name="player_uid_243472479_1" height="300" width="500"></div>
+      <div data-videopID="3390582233001"></div>
+      <div data-videopID="2888664176001"></div>
+      <div data-videopID="3390582233001"></div>
       <div><img src="//placekitten.com/g/470/300"/></div>
       <div><img src="//placekitten.com/370/300"/></div>
       <div><img src="//placekitten.com/g/370/300"/></div>
@@ -23,13 +26,59 @@
     </div>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="bower_components/slick.js/slick/slick.min.js"></script>
+  <script src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+
   <script>
-$('.Carousel').slick({
-speed: 300,
-slidesToShow: 1,
-centerMode: true,
-variableWidth: true
-});
+    var playerTemplate = function(idx, videopID){
+      return ''+
+      '<object id="bc' + idx + '" class="BrightcoveExperience">'+
+      '<param name="@videoPlayer" value="' + videopID + '"; />'+
+      '<param name="playerID" value="1719551519001" />'+
+      //'<param name="playerKey" value="AQ~~,AAABZYdAfHk~,rfwhGZGAOzpg9is3SWrPSaKzW3y1dPmF" />'+
+      '<param name="bgcolor" value="#000000" />'+
+      '<param name="autoStart" value="false" />'+
+      '<param name="width" value="180" />'+
+      '<param name="height" value="300" />'+
+      '<param name="isVid" value="true" />'+
+      '<param name="isUI" value="true" />'+
+      '<param name="dynamicStreaming" value="true" />'+
+      '<param name="includeAPI" value="true" />'+
+      //'<param name="templateLoadHandler" value="onTemplateLoad" />'+
+      '<param name="templateReadyHandler" value="onTemplateReady" />'+
+      '</object>';
+    };
+    $('[data-videopID]').each(function(index, el){
+        var videopID = this.getAttribute('data-videopID');
+        var playerHTML = playerTemplate(index, videopID);
+        this.innerHTML = playerHTML;
+    });
+  var objectjogger = 0;
+  $('.Carousel').slick({
+    // onBeforeChange: function () {console.log('onBeforeChange');},
+    // onAfterChange: function () {console.log('onAfterChange');},
+    // onReInit: function () {console.log('onReInit');},
+    onSetPosition: function () {console.log('onSetPosition');
+      objectjogger = (objectjogger === 0) ? 1 : 0;
+      $('.slick-cloned').find('object').css('font-size', objectjogger);
+    },
+    // onInit: function () {console.log('onInit');},
+    slidesToShow: 1,
+    centerMode: true,
+    variableWidth: true
+  });
+    //var player,APIModules;
+    //function onTemplateLoad(objectID){
+      // player = brightcove.api.getExperience(experienceID);
+      // APIModules = brightcove.api.modules.APIModules;
+      //console.log(objectID); //id
+    //}
+    //var videoPlayer;
+    function onTemplateReady(objectOBJ){
+      // videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+      // videoPlayer.play();
+      $('#'+objectOBJ.target.experience.id).css('font-size', objectjogger);
+    }
   </script>
+
   </body>
 </html>
