@@ -9,6 +9,46 @@
  <div class="BrightcovePlaceHolder" data-videopID="2888664176001"></div>
  <div class="BrightcovePlaceHolder" data-videopID="3390582233001"></div>
 
+<!--
+<br><div style="display:none"></div>
+<object id="a" class="BrightcoveExperience">
+  <param name="wmode" value="transparent" />
+  <param name="width" value="500" />
+  <param name="height" value="300" />
+  <param name="isVid" value="true" />
+  <param name="isUI" value="true" />
+  <param name="dynamicStreaming" value="true" />
+  <param name="playerKey" value="AQ~~,AAABZYdAfHk~,rfwhGZGAOzpg9is3SWrPSaKzW3y1dPmF" />
+  <param name="playerID" value="1719551519001" />
+  <param name="@videoPlayer" value="2888664176001" />
+</object>
+<br><div style="display:none"></div>
+<object id="c" class="BrightcoveExperience">
+  <param name="wmode" value="transparent" />
+  <param name="bgcolor" value="#000000" />
+  <param name="width" value="500" />
+  <param name="height" value="300" />
+  <param name="isVid" value="true" />
+  <param name="isUI" value="true" />
+  <param name="dynamicStreaming" value="true" />
+  <param name="playerKey" value="AQ~~,AAABZYdAfHk~,rfwhGZGAOzpg9is3SWrPSaKzW3y1dPmF" />
+  <param name="playerID" value="3266798266001" />
+  <param name="@videoPlayer" value="3390582233001" />
+</object>
+
+<br><div style="display:none"></div>
+<object id="b" class="BrightcoveExperience">
+  <param name="wmode" value="transparent" />
+  <param name="width" value="500" />
+  <param name="height" value="300" />
+  <param name="isVid" value="true" />
+  <param name="isUI" value="true" />
+  <param name="dynamicStreaming" value="true" />
+  <param name="playerKey" value="AQ~~,AAAA1oy1bvE~,ALl2ezBj3WE0z3yX6Xw29sdCvkH5GCJv" />
+  <param name="@videoPlayer" value="921449663001" />
+  <param name="playerID" value="2079935931001" />
+</object>
+ -->
 
 <script src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
   <!--
@@ -31,9 +71,9 @@
       '<param name="playerKey" value="AQ~~,AAABZYdAfHk~,rfwhGZGAOzpg9is3SWrPSaKzW3y1dPmF" />'+
       '<param name="playerID" value="3266798266001" />'+
       '<param name="@videoPlayer" value="' + videopID + '"; />'+
-      // '<param name="includeAPI" value="true" />'+
-      // '<param name="templateLoadHandler" value="onTemplateLoad" />'+
-      // '<param name="templateReadyHandler" value="onTemplateReady" />'+
+      '<param name="includeAPI" value="true" />'+
+      '<param name="templateLoadHandler" value="onTemplateLoad" />'+
+      '<param name="templateReadyHandler" value="onTemplateReady" />'+
       '</object>';
     };
     $('.BrightcovePlaceHolder').each(function(index, el){
@@ -42,15 +82,21 @@
         this.innerHTML = playerHTML;
     });
     brightcove.createExperiences();
-    // var player,APIModules,videoPlayer;
-    // function onTemplateLoad(experienceID){
-    //  player = brightcove.api.getExperience(experienceID);
-    //  APIModules = brightcove.api.modules.APIModules;
-    // }
-    // function onTemplateReady(evt){
-    //  videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-    //  videoPlayer.play();
-    // }
+    var player,APIModules,videoPlayer,modVP,stillUrl;
+    function onChange(event){
+      stillUrl = event.media.videoStillURL;
+         console.log(stillUrl);
+    }
+    function onTemplateLoad(experienceID){
+     player = brightcove.api.getExperience(experienceID);
+     //APIModules = brightcove.api.modules.APIModules;
+      modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
+      modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onChange);
+    }
+    function onTemplateReady(evt){
+     videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
+     //videoPlayer.play();
+    }
   </script>
 
 </body>

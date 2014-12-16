@@ -6,16 +6,13 @@
     <title>Slickslider</title>
     <link rel="stylesheet" href="style.css">
 <style>
-  [data-videopID]{
-    font-size: 0;
-  }
+.Carousel img{
+  height: 300px
+}
 </style>
 </head>
   <body>
     <div class="Carousel">
-      <div data-videopID="3390582233001"></div>
-      <div data-videopID="2888664176001"></div>
-      <div data-videopID="3390582233001"></div>
       <div><img src="//placekitten.com/g/470/300"/></div>
       <div><img src="//placekitten.com/370/300"/></div>
       <div><img src="//placekitten.com/g/370/300"/></div>
@@ -24,9 +21,13 @@
       <div><img src="//placekitten.com/420/300"/></div>
       <div><img src="//placekitten.com/g/420/300"/></div>
     </div>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <div class="Lightbox">
+      <div data-videopID="3390582233001"></div>
+      <div data-videopID="2888664176001"></div>
+    </div>
+  <script src="//code.jquery.com/jquery-latest.min.js"></script>
   <script src="bower_components/slick.js/slick/slick.min.js"></script>
-  <script src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+  <script src="//admin.brightcove.com/js/BrightcoveExperiences.js"></script>
 
   <script>
     var playerTemplate = function(idx, videopID){
@@ -43,7 +44,7 @@
       '<param name="isUI" value="true" />'+
       '<param name="dynamicStreaming" value="true" />'+
       '<param name="includeAPI" value="true" />'+
-      //'<param name="templateLoadHandler" value="onTemplateLoad" />'+
+      '<param name="templateLoadHandler" value="onTemplateLoad" />'+
       '<param name="templateReadyHandler" value="onTemplateReady" />'+
       '</object>';
     };
@@ -57,26 +58,35 @@
     // onBeforeChange: function () {console.log('onBeforeChange');},
     // onAfterChange: function () {console.log('onAfterChange');},
     // onReInit: function () {console.log('onReInit');},
-    onSetPosition: function () {console.log('onSetPosition');
-      objectjogger = (objectjogger === 0) ? 1 : 0;
-      $('.slick-cloned').find('object').css('font-size', objectjogger);
+    onSetPosition: function () {
+      //console.log('onSetPosition');
+      //objectjogger = (objectjogger === 0) ? 1 : 0;
+      //$('.slick-cloned').find('object').css('font-size', objectjogger);
     },
     // onInit: function () {console.log('onInit');},
     slidesToShow: 1,
     centerMode: true,
     variableWidth: true
   });
-    //var player,APIModules;
-    //function onTemplateLoad(objectID){
-      // player = brightcove.api.getExperience(experienceID);
-      // APIModules = brightcove.api.modules.APIModules;
-      //console.log(objectID); //id
-    //}
+    brightcove.createExperiences();
+    var player,APIModules,stillUrl,modVP;
+    function onChange(event){
+      stillUrl = event.media.videoStillURL;
+      console.log(stillUrl);
+      $('.Carousel').slickAdd('<div><img src="'+stillUrl+'"/></div>',true);
+    }
+    function onTemplateLoad(experienceID){
+      player = brightcove.api.getExperience(experienceID);
+      //APIModules = brightcove.api.modules.APIModules;
+      //console.log(experienceID); //id
+      modVP = player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
+      modVP.addEventListener(brightcove.api.events.MediaEvent.CHANGE, onChange);
+    }
     //var videoPlayer;
     function onTemplateReady(objectOBJ){
       // videoPlayer = player.getModule(APIModules.VIDEO_PLAYER);
-      // videoPlayer.play();
-      $('#'+objectOBJ.target.experience.id).css('font-size', objectjogger);
+      //console.log(objectOBJ); //id
+      //$('#'+objectOBJ.target.experience.id).css('font-size', objectjogger);
     }
   </script>
 
