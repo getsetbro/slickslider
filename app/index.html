@@ -21,27 +21,24 @@
       width: 960px;
       margin: auto;
     }
-    .PropertyImages{
-      max-height: 300px;
-      overflow: hidden;
-    }
+
     </style>
 </head>
 
 <body>
     <div class="Breadcrumb">asdf / adfs / asdf / asdf / asdf / asdf / asdf / asdf</div>
-    <div id="prop_carousel" class="Carousel"></div>
+    <div class="Carousel js-prop_carousel"></div>
     <div class="contain">
-        <div id="prop_images" class="PropertyImages">
+        <div class="PropertyImages js-prop_images">
           <div><img src="//placekitten.com/g/470/200"/></div>
           <div><img src="//placekitten.com/370/300"/></div>
           <div><img src="//placekitten.com/g/370/400"/></div>
           <div><img src="//placekitten.com/470/500"/></div>
         </div>
-        <div id="prop_videos" data-bcvid="2888664176001, 3390582233001"></div>
+        <div class="js-prop_videos" data-bcvid="3390582233001,2888664176001"></div>
         <div class="Lightbox Lightbox--hidden">
-          <div class="Lightbox-close" onClick="Carousel.hideAndStop();">&times;</div>
-          <div id="prop_lightbox"></div>
+          <div class="Lightbox-close"><span onclick="Carousel.hideAndStop();">&times;<span></div>
+          <div class="js-prop_lightbox"></div>
         </div>
         <div>
           <h1>Prop title h1 header content text</h1>

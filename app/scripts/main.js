@@ -4,11 +4,9 @@
  */
 
 (function(window, $, undefined) {
-    var Int = {};
     var Carousel = {
-        //init
         playerTemplate: function(videopID){
-          return '<div id="bcp_' + videopID + '">' +
+          return '<div>' +
           '<div style="display:none"></div>'+
           '<object class="BrightcoveExperience" id="bcv_' + videopID + '">'+
           '<param name="bgcolor" value="#000000" />'+
@@ -28,7 +26,7 @@
           '</div>';
         },
         slickCarousel:function(){
-          Carousel.prop_carousel = $('#prop_carousel').slick({
+          Carousel.prop_carousel = $('.js-prop_carousel').slick({
             slidesToShow: 1,
             centerMode: true,
             variableWidth: true,
@@ -38,13 +36,13 @@
           });
         },
         slickLightbox:function(){
-          Carousel.prop_lightbox = $('#prop_lightbox').slick({
+          Carousel.prop_lightbox = $('.js-prop_lightbox').slick({
             //speed:300
           });
         },
         bindImgClicks: function(){
           Carousel.imgClicksBound = true;
-          $('#prop_carousel').find('img').click(function(){
+          $('.js-prop_carousel').find('img').click(function(){
             Carousel.prop_carousel.slickPause();
             var carouselcurrent = $(this).parent().attr('index');
             $('.Lightbox').removeClass('Lightbox--hidden');
@@ -52,23 +50,24 @@
           });
         },
         init: function() {
-          var propImagesWrap = $('#prop_images');
+          var propImagesWrap = $('.js-prop_images');
           var propImages = propImagesWrap.find('>div');
           if(propImages.length < 2){
             //do nothing
             return false;
           }
           //continue to create carousel
-          propImages.appendTo('#prop_carousel,#prop_lightbox');
+          propImages.appendTo('.js-prop_carousel,.js-prop_lightbox');
 
           Carousel.slickLightbox();
           Carousel.slickCarousel();
           //videos
-          var prop_videos = $('#prop_videos');
+          var prop_videos = $('.js-prop_videos');
           var prop_videos_data = prop_videos.data('bcvid');
-          Carousel.prop_videos_arr = JSON.parse("[" + prop_videos_data + "]");
+          //if there is no element or attribute do not try to parse
+          Carousel.prop_videos_arr = (prop_videos_data) ? JSON.parse("[" + prop_videos_data + "]") : [];
           //if no videos then do not continue
-          if( !prop_videos || !prop_videos_data || !Carousel.prop_videos_arr.length ){
+          if( !Carousel.prop_videos_arr.length ){
             //bind image clicks now that would have been bound after videos
             Carousel.bindImgClicks();
             return false;
@@ -84,8 +83,8 @@
         player:null,
         APIModules:null,
         videoPlayer:{},
-        playersAdded:[],
-        addAtIndex:0,
+        playersAddedArr:[],
+        playersAddedObj:{},
         // onTemplateLoad: function(experienceID) {
         //   console.log("EVENT: onTemplateLoad");
         // },
@@ -96,26 +95,28 @@
           Carousel.videoPlayer[experienceID] = Carousel.player.getModule(brightcove.api.modules.APIModules.VIDEO_PLAYER);
           Carousel.videoPlayer[experienceID].getCurrentVideo(function(video){
 
-            if( Carousel.playersAdded.indexOf(video.id) === -1 ){
-              Carousel.prop_carousel.slickAdd("<div id='s_"+video.id+"'><img src='" + video.videoStillURL + "'/></div>", Carousel.addAtIndex, true );
-              Carousel.playersAdded.push(video.id);
-              Carousel.addAtIndex++;
+            if( Carousel.playersAddedArr.indexOf(video.videoStillURL) === -1 ){
+              Carousel.playersAddedArr.push(video.videoStillURL);
+              Carousel.playersAddedObj[video.id] = video.videoStillURL;
             }
+            if( Carousel.playersAddedArr.length === Carousel.prop_videos_arr.length){
+              $.each(Carousel.prop_videos_arr, function(i){
 
-            if( Carousel.playersAdded.length === Carousel.prop_videos_arr.length ){
-            Carousel.prop_carousel.slickPlay();
-
+                Carousel.prop_carousel.slickAdd("<div><img src='" + Carousel.playersAddedObj[Carousel.prop_videos_arr[i]] + "'/></div>", true );
+              });
+              Carousel.prop_carousel.slickPlay();
               Carousel.bindImgClicks();
+              Carousel.playersAddedArr.push('be done');
             }
 
           });
         },
         hideAndStop: function(active) {
+            //pause all vids
             $.each(Carousel.videoPlayer, function(key,val){
               Carousel.videoPlayer[key].pause();
             });
-            // hide the lightbox
-            //$("#prop_carousel").attr("class", "playerHide");
+            // restart autoplay and hide the lightbox
             Carousel.prop_carousel.slickPlay();
             $('.Lightbox').addClass('Lightbox--hidden');
 

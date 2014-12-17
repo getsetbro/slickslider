@@ -1,0 +1,125 @@
+body{
+margin: 0;
+}
+
+
+    .PropertyImages{
+      height: 300px;
+      overflow: hidden;
+    }
+    .PropertyImages img{
+      height: 300px
+    }
+/**
+ * Modifier: Carousel
+ */
+.Carousel{
+  min-height: 40px;
+  max-height: 300px;
+  overflow-y: hidden;
+}
+
+/* Arrows */
+.Carousel .slick-prev,
+.Carousel .slick-next {
+  position: absolute;
+  line-height: 0;
+  font-size: 0;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+
+  width: 60px;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.20);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -99999em;
+}
+.Carousel .slick-prev{
+  left: 0;
+  background-image: url('slick-prev.png');
+}
+.Carousel .slick-next{
+  right: 0;
+  background-image: url('slick-next.png');
+}
+.Carousel .slick-prev:hover,
+.Carousel .slick-prev:focus,
+.Carousel .slick-next:hover,
+.Carousel .slick-next:focus {
+  outline: none;
+  background-color: rgba(0,0,0,0.50);
+  color: transparent;
+}
+.Carousel .slick-slide img{
+  height: 300px
+}
+
+/*lightbox*/
+.Lightbox {
+  background-color: rgba(33,33,33,0.85);
+  color: white;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  overflow: auto;
+  position: fixed;
+  z-index: 99999;
+}
+.Lightbox--hidden{
+  top:100%;
+  bottom: inherit;
+}
+.Lightbox .slick-slide img{
+  margin: auto;
+}
+.Lightbox-close{
+  text-align: right;
+  font-size: 4em;
+  padding-right: 40px;
+  font-family: 'open sans';
+  font-weight: 300;
+}
+.Lightbox-close span{
+  cursor: pointer;
+}
+/* Arrows */
+.Lightbox .slick-prev,
+.Lightbox .slick-next {
+  position: absolute;
+  line-height: 0;
+  font-size: 0;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  width: 60px;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -99999em;
+}
+.Lightbox .slick-prev{
+  left: 40px;
+  background-image: url('slick-prev.png');
+}
+.Lightbox .slick-next{
+  right: 40px;
+  background-image: url('slick-next.png');
+}
+.Lightbox .slick-prev:hover,
+.Lightbox .slick-prev:focus,
+.Lightbox .slick-next:hover,
+.Lightbox .slick-next:focus {
+  outline: none;
+  /*background-color: rgba(0,0,0,0.50);*/
+  color: transparent;
+}
+
