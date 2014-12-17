@@ -26,12 +26,14 @@
           '</div>';
         },
         slickCarousel:function(){
-          Carousel.prop_carousel = $('.js-prop_carousel').slick({
+          var pc = $('.js-prop_carousel');
+          var playspeed = pc.data('playspeed');
+          Carousel.prop_carousel = pc.slick({
             slidesToShow: 1,
             centerMode: true,
             variableWidth: true,
             autoplay:false,
-            autoplaySpeed:6000
+            autoplaySpeed: (playspeed) ? playspeed : 6000
             //speed:300
           });
         },
@@ -40,31 +42,53 @@
             //speed:300
           });
         },
+        openLightbox:function(idx){
+            $('.Lightbox').removeClass('Lightbox--hidden');
+            Carousel.prop_lightbox.slickGoTo(idx);
+            Carousel.prop_carousel.slickPause();
+        },
         bindImgClicks: function(){
-          Carousel.imgClicksBound = true;
-          $('.js-prop_carousel').click(function(event){
-                console.log(event);
-          });
+
           $('.js-prop_carousel').find('.slick-track').click(function(event){
             var carouselcurrent = $(event.target).parent().attr('index');
-            $('.Lightbox').removeClass('Lightbox--hidden');
-            Carousel.prop_lightbox.slickGoTo(carouselcurrent);
-            Carousel.prop_carousel.slickPause();
+            Carousel.openLightbox(carouselcurrent);
           });
+        },
+        getParams:function(){
+          var match,
+              pl     = /\+/g,  // Regex for replacing addition symbol with a space
+              search = /([^&=]+)=?([^&]*)/g,
+              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+              query  = window.location.search.substring(1);
+
+          Carousel.urlParams = {};
+          while ( match = search.exec(query) ){
+            Carousel.urlParams[decode(match[1])] = decode(match[2]);
+          }
+        },
+        runFromParams:function(param){
+            if(param <= ( Carousel.propImages.length + Carousel.prop_videos_arr.length) ){
+              Carousel.openLightbox( param );
+            }else{
+              Carousel.openLightbox( 0 );
+            }
         },
         init: function() {
           var propImagesWrap = $('.js-prop_images');
-          var propImages = propImagesWrap.find('>div');
-          if(propImages.length < 2){
-            //do nothing
+          Carousel.propImages = propImagesWrap.find('>div');
+
+          if(Carousel.propImages.length < 2){
+            //do nothing if there is less than 2 images
             return false;
           }
+
           //continue to create carousel
-          propImages.detach().appendTo('.js-prop_carousel,.js-prop_lightbox');
+          Carousel.propImages.detach().appendTo('.js-prop_carousel,.js-prop_lightbox');
 
           Carousel.slickLightbox();
           Carousel.slickCarousel();
           Carousel.bindImgClicks();
+          Carousel.getParams();
 
           //videos
           var prop_videos = $('.js-prop_videos');
@@ -73,10 +97,20 @@
           Carousel.prop_videos_arr = (prop_videos_data) ? JSON.parse("[" + prop_videos_data + "]") : [];
           //if no videos then do not continue
           if( !Carousel.prop_videos_arr.length ){
-            //bind image clicks now that would have been bound after videos
+            if(Carousel.urlParams.lightbox){
+              Carousel.runFromParams(Carousel.urlParams.lightbox);
+            }
             return false;
           }
 
+          //get Brightcove JS then call load
+          var script = document.createElement('script');
+          //script.type = 'text/javascript';
+          script.src = '//admin.brightcove.com/js/BrightcoveExperiences.js';
+          script.onload = Carousel.addVideos;
+          document.body.appendChild(script);
+        },
+        addVideos:function(){
           $.each(Carousel.prop_videos_arr, function(i){
               Carousel.prop_lightbox.slickAdd( Carousel.playerTemplate( Carousel.prop_videos_arr[i] ), true );
           });
@@ -112,6 +146,9 @@
               });
               Carousel.prop_carousel.slickPlay();
               Carousel.playersAddedArr.push('be done');
+              if(Carousel.urlParams.lightbox){
+                Carousel.runFromParams(Carousel.urlParams.lightbox);
+              }
             }
 
           });

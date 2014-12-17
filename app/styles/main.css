@@ -1,15 +1,12 @@
-body{
-margin: 0;
+
+
+.PropertyImages{
+  max-height: 300px;
+  overflow: hidden;
 }
-
-
-    .PropertyImages{
-      max-height: 300px;
-      overflow: hidden;
-    }
-    .PropertyImages img{
-      height: 300px
-    }
+.PropertyImages img{
+  height: 300px
+}
 /**
  * Modifier: Carousel
  */
