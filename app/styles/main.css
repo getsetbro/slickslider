@@ -4,7 +4,7 @@ margin: 0;
 
 
     .PropertyImages{
-      height: 300px;
+      max-height: 300px;
       overflow: hidden;
     }
     .PropertyImages img{
