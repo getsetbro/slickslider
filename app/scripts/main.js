@@ -42,11 +42,14 @@
         },
         bindImgClicks: function(){
           Carousel.imgClicksBound = true;
-          $('.js-prop_carousel').find('img').click(function(){
-            Carousel.prop_carousel.slickPause();
-            var carouselcurrent = $(this).parent().attr('index');
+          $('.js-prop_carousel').click(function(event){
+                console.log(event);
+          });
+          $('.js-prop_carousel').find('.slick-track').click(function(event){
+            var carouselcurrent = $(event.target).parent().attr('index');
             $('.Lightbox').removeClass('Lightbox--hidden');
             Carousel.prop_lightbox.slickGoTo(carouselcurrent);
+            Carousel.prop_carousel.slickPause();
           });
         },
         init: function() {
@@ -57,10 +60,12 @@
             return false;
           }
           //continue to create carousel
-          propImages.appendTo('.js-prop_carousel,.js-prop_lightbox');
+          propImages.detach().appendTo('.js-prop_carousel,.js-prop_lightbox');
 
           Carousel.slickLightbox();
           Carousel.slickCarousel();
+          Carousel.bindImgClicks();
+
           //videos
           var prop_videos = $('.js-prop_videos');
           var prop_videos_data = prop_videos.data('bcvid');
@@ -69,7 +74,6 @@
           //if no videos then do not continue
           if( !Carousel.prop_videos_arr.length ){
             //bind image clicks now that would have been bound after videos
-            Carousel.bindImgClicks();
             return false;
           }
 
@@ -101,11 +105,12 @@
             }
             if( Carousel.playersAddedArr.length === Carousel.prop_videos_arr.length){
               $.each(Carousel.prop_videos_arr, function(i){
-
-                Carousel.prop_carousel.slickAdd("<div><img src='" + Carousel.playersAddedObj[Carousel.prop_videos_arr[i]] + "'/></div>", true );
+                Carousel.prop_carousel.slickAdd("<div class='Carousel-vid'>"+
+                  "<img src='" + Carousel.playersAddedObj[Carousel.prop_videos_arr[i]] + "'/>"+
+                  "<div class='Carousel-play'></div>"+
+                  "</div>", true );
               });
               Carousel.prop_carousel.slickPlay();
-              Carousel.bindImgClicks();
               Carousel.playersAddedArr.push('be done');
             }
 

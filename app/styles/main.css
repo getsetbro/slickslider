@@ -57,6 +57,18 @@ margin: 0;
 .Carousel .slick-slide img{
   height: 300px
 }
+.Carousel-vid{
+  position: relative;
+}
+.Carousel-play{
+  background:transparent url('youtube.png') no-repeat center;
+  cursor:pointer;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  position: absolute;
+}
 
 /*lightbox*/
 .Lightbox {
