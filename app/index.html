@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/slick.css">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans&subset=latin' rel='stylesheet'>
     <style>
     body{
-    margin: 0;
+      font-family: 'open sans';
+      margin: 0;
     }
 
     .Breadcrumb{
@@ -22,10 +23,137 @@
     }
 
     .contain{
-      width: 960px;
+      width: 942px;
       margin: auto;
     }
+    footer{
+      background-color: #222;
+      border-top: 4px solid #000;
+      padding: 20px;
+      height: 99px;
+      color: #444;
+      margin-top: 20px;
+    }
+    a{
+      color: #bc141a;
+    }
 
+
+    .row{
+      margin-bottom: 19px;
+    }
+    .row:after{
+      content: '';
+      display: block;
+      clear: both;
+      height: 0;
+      overflow: hidden;
+    }
+    .r05,.r10,.r20,.r25,.r30,.r40,.r50,.r60,.r65,.r70,.r75,.r80,.r90{
+      display: inline-block;
+      vertical-align: top
+    }
+    .r80{
+      width:80%;
+    }
+    .r90{
+      width:90%;
+    }
+    .r75{
+      width:75%;
+    }
+    .r70{
+      width:70%;
+    }
+    .r65{
+      width:65%;
+    }
+    .r60{
+      width:60%;
+    }
+    .r50{
+      width:50%;
+    }
+    .r40{
+      width:40%;
+    }
+    .r30{
+      width:30%;
+    }
+    .r25{
+      width: 25%;
+    }
+    .r20{
+      width: 20%;
+    }
+    .r10{
+      width: 10%;
+    }
+    .r05{
+      width: 5%;
+    }
+
+    .rl{
+      padding-left: 19px;
+    }
+
+    h2{
+      border-left: 4px solid #bc141a;
+      color:#bc141a;
+      padding-left: 10px
+    }
+
+    .AskExperts{
+      padding-left: 91px;
+    }
+    .AskExperts *{
+      box-sizing:border-box;
+    }
+    .AskExperts-form{
+      border:1px solid #dcdcdc;
+      background-color: #f5f5f5;
+      padding:19px 19px 0 19px;
+      border-radius: 4px;
+      font-size:14px;
+    }
+    .AskExperts-img{
+      float: left;
+      border:1px solid #dcdcdc;
+      border-radius: 4px;
+      margin-right: 10px;
+      width: 60px;
+      height: 60px;
+    }
+    form p{
+      margin:0;
+    }
+    .AskExperts select, .AskExperts input, .AskExperts textarea, .AskExperts button{
+      font-family: 'open sans';
+      border: 1px solid #dcdcdc;
+      background-color: white;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .AskExperts select{
+      height: 42px
+    }
+    .AskExperts input[type=text]{
+      line-height: 40px;
+      padding: 0 10px;
+    }
+    .AskExperts textarea{
+      display: block;
+      padding: 10px;
+    }
+    .AskExperts button{
+      background-color: #bc141a;
+      height: 42px;
+      color: white;
+      border: 0 none;
+    }
     </style>
 </head>
 
@@ -34,12 +162,12 @@
     <div class="Carousel js-prop_carousel" data-playspeed="5000"></div>
     <div class="contain">
         <div class="PropertyImages js-prop_images">
-          <div><img src="//placekitten.com/g/470/200"/></div>
-          <div><img src="//placekitten.com/370/300"/></div>
-          <div><img src="//placekitten.com/g/370/400"/></div>
-          <div><img src="//placekitten.com/470/500"/></div>
+          <div><img src="//lorempixel.com/900/600"/></div>
+          <div><img src="//lorempixel.com/g/800/500"/></div>
+          <div><img src="//lorempixel.com/g/700/400"/></div>
+          <div><img src="//lorempixel.com/g/600/300"/></div>
         </div>
-        <div class="js-prop_videos" data-bcvid="3390582233001,2888664176001"></div>
+        <div class="js-prop_vide-----os" data-bcvid="3390582233001,2888664176001"></div>
         <div class="Lightbox Lightbox--hidden">
           <div class="Lightbox-close"><span onclick="Carousel.hideAndStop();">&times;<span></div>
           <div class="js-prop_lightbox"></div>
@@ -49,7 +177,63 @@
           <p>prop details</p>
           <p>prop info</p>
         </div>
+        <div class="r50">
+          <h2>Description</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus architecto perferendis voluptatum, saepe amet quae eum molestiae, velit at porro soluta deleniti, nostrum, maiores hic ipsa. Asperiores, quam fugiat labore.</p>
+        </div><!-- ...
+     --><div class="r50">
+          <div class="AskExperts">
+            <h2>Talk to our experts</h2>
+            <form class="AskExperts-form">
+              <div class="row">
+                <img class="AskExperts-img" src="//lorempixum.com/60/60" alt="Expert picture"/>
+                <p>
+                  <strong>Office North</strong><br>
+                  <a href="#a">Firstname Lastname</a><br>
+                  [] 1 234 234 2345
+                </p>
+              </div>
+              <div class="row">
+                <div class="r30">
+                  <select><option value="0">Mr.</option></select>
+                </div><div class="r70 rl">
+                  <input type="text" placeholder="First Name" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="r60">
+                  <input type="text" placeholder="Last Name" />
+                </div><div class="r40 rl">
+                  <input type="text" placeholder="Company" />
+                </div>
+              </div>
+               <div class="row">
+                  <div class="r50">
+                    <input type="text" placeholder="Telephone" />
+                  </div><div class="r50 rl">
+                    <input type="text" placeholder="E-mail" />
+                  </div>
+                </div>
+                <textarea rows="8" placeholder="Type a personal  message here.."></textarea>
+                <br>
+                <div class="row">
+                  <div class="r05">
+                    <input type="checkbox"/>
+                  </div><div class="r70">
+                    <span>I accept the <a href="#tc">terms and conditions</a> and the data security measures</span>
+                  </div><div class="r25 rl">
+                    <button type="submit">Send</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
     </div>
+    <footer>
+      &copy;
+      <hr>
+      &reg;
+    </footer>
     <!-- End of player-block -->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="scripts/slick.min.js"></script>
