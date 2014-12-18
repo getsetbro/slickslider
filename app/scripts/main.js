@@ -14,7 +14,8 @@
           '<param name="height" value="300" />'+
           '<param name="isVid" value="true" />'+
           '<param name="isUI" value="true" />'+
-          '<param name="htmlFallback" value="true" />'+
+          '<param name="forceHTML" value="true" />'+
+          //'<param name="htmlFallback" value="true" />'+
           '<param name="dynamicStreaming" value="true" />'+
           '<param name="playerKey" value="AQ~~,AAABZYdAfHk~,rfwhGZGAOzpg9is3SWrPSaKzW3y1dPmF" />'+
           //'<param name="playerID" value="3266798266001" />'+ //replaced by the playerKey param
