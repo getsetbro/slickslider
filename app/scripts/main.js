@@ -56,14 +56,17 @@
           });
         },
         getParams:function(){
-          var match,
-              pl     = /\+/g,  // Regex for replacing addition symbol with a space
-              search = /([^&=]+)=?([^&]*)/g,
-              decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-              query  = window.location.search.substring(1);
+          var match;
+          var pl     = /\+/g; // Regex for replacing addition symbol with a space
+          var search = /([^&=]+)=?([^&]*)/g;
+          var decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
+          var query  = window.location.search.substring(1);
 
           Carousel.urlParams = {};
-          while ( match = search.exec(query) ){
+
+          //while ( match = search.exec(query) ){
+          //For those of us using a fairly strict setup of JSHint swap the while(match = search.exec(query)) with
+          while( (match = search.exec(query) ) !== null){
             Carousel.urlParams[decode(match[1])] = decode(match[2]);
           }
         },
